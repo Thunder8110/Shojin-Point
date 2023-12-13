@@ -20,8 +20,8 @@ This app gets an AtCoder user's submissions and calculate "Shojin Point".
     - User name: Your username.
     - Begin/End date: Beginning and ending of the aggregation period. Make sure to input in "YYYY-MM-DD hh:mm:ss" format.
     - Formula: The formula of calculating "Shojin Point". These variables are available:
-        - [tee]: Total TEE in period.
-        - [x] [y] [z]: Constants.
+        - \[tee\]: Total TEE in period.
+        - \[x\] \[y\] \[z\]: Constants.
     - x/y/z: Constants values. Please input 0 into unused values.
 4. Press "OK" button.
 5. Click "Main" menu (chart icon) and you'll see points!
