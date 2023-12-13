@@ -1,0 +1,17 @@
+?start : expr
+
+?expr : term | add | sub
+add : expr "+" term
+sub : expr "-" term
+?term : factor | mul | div
+mul : term "*" factor
+div : term "/" factor
+factor : number | variable | "(" expr ")"
+variable : "[" CNAME "]"
+number : NUMBER
+
+%import common.WS
+%import common.CNAME
+%import common.NUMBER
+
+%ignore WS
