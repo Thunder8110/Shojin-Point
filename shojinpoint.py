@@ -43,7 +43,13 @@ def main(page: ft.Page):
   page.views.append(vw_main)
   page.update()
 
-  page.data = values.values()
+  def load_data():
+    return values.values()
+
+  def save_data():
+    pass
+
+  page.data = load_data()
   def refresh(page: ft.Page):
     data = data_getter.get(page.data)
     if data is None:
