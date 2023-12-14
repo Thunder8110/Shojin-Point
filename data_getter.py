@@ -67,7 +67,7 @@ def merge_submission_data(curr_data, new_data):
       accepted[prob_id] = sub_time
 
 def download_problems():
-  file_path = os.path.dirname(__file__) + "\\data\\problem-models.json"
+  file_path = os.path.dirname(__file__) + "/data/problem-models.json"
   problems_url = "https://kenkoooo.com/atcoder/resources/problem-models.json"
   res = requests.get(problems_url)
   cont = res.text
@@ -75,7 +75,7 @@ def download_problems():
     file.write(cont)
 
 def problems():
-  file_path = os.path.dirname(__file__) + "\\data\\problem-models.json"
+  file_path = os.path.dirname(__file__) + "/data/problem-models.json"
   with open (file_path, "r") as file:
     probs = json.load(file)
   return probs
