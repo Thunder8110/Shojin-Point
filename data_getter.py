@@ -22,6 +22,8 @@ def get(val: values.values):
   for unique_ac in accepted:
     if unique_ac in probs and begin <= accepted[unique_ac] < end:
       prob = probs[unique_ac]
+      if "slope" not in prob or "intercept" not in prob:
+        continue
       tee_sum += tee_problem(prob["slope"], prob["intercept"])
   variables = {"tee": tee_sum, "x": valx, "y": valy, "z": valz}
   points = formula_parser.calculate(formula, variables)
