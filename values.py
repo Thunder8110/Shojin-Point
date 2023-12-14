@@ -9,9 +9,3 @@ class values:
     self.valx: float | None = None
     self.valy: float | None = None
     self.valz: float | None = None
-
-test_data = values()
-test_data.user = "KA37RI"
-test_data.begin_date = 1701356400
-test_data.end_date = 1701961200
-test_data.formula = "[tee] * 10"
