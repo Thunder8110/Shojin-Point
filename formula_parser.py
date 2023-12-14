@@ -25,7 +25,7 @@ class Formula(lark.Transformer):
     return float(tree[0].value)
 
 def calculate(formula: str, variables: dict):
-  file_path = os.path.dirname(__file__) + "\\formula.lark"
+  file_path = os.path.dirname(__file__) + "/formula.lark"
   parser = lark.Lark(open(file_path, "r"), parser="lalr")
   tree = parser.parse(formula)
   return int(Formula(variables).transform(tree))

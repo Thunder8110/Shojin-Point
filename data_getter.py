@@ -36,7 +36,7 @@ def tee_problem(slope: float, intercept: float):
 
 def user_submissions(user: str):
   dir_path = os.path.dirname(__file__)
-  file_path = dir_path + f"\\data\\user_submissions\\{user}.json"
+  file_path = dir_path + f"/data/user_submissions/{user}.json"
   if not os.path.isdir(dir_path):
     os.makedirs(dir_path)
   if not os.path.isfile(file_path):
