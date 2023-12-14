@@ -54,7 +54,7 @@ def main(page: ft.Page):
     refresh_main(page)
     page.update()
 
-  schedule.every(5).seconds.do(refresh, page)
+  schedule.every(20).seconds.do(refresh, page)
   while True:
     schedule.run_pending()
     time.sleep(1)
