@@ -43,7 +43,6 @@ def main(page: ft.Page):
   page.views.append(vw_setting)
   page.views.append(vw_info)
   page.views.append(vw_main)
-  page.update()
 
   def load_data():
     file_path = os.path.dirname(__file__) + "/data/data_values.json"
@@ -84,6 +83,8 @@ def main(page: ft.Page):
     refresh_main(page)
     page.update()
 
+  page.update()
+  
   schedule.every(20).seconds.do(refresh, page)
   while True:
     schedule.run_pending()
