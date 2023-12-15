@@ -2,7 +2,7 @@ import flet as ft
 
 def view_info(page, navigation_bar):
   texts = ["Shojin Point", "version 0.1.0-alpha", "Made By KA37RI",
-           "// TODO", "Features: History, Editorial AC", "Setting: Validator", "Setting: Save & Load Data",
+           "// TODO", "Features: History, Editorial AC", "Setting: Validator",
            "Software: Make Executable File", "Software: Update Problems data"]
   text_info = [ft.Text(tx, size=20) for tx in texts]
 
