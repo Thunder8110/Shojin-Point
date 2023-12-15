@@ -1,3 +1,5 @@
+import os
+import json
 import flet as ft
 import schedule
 import time
@@ -44,12 +46,34 @@ def main(page: ft.Page):
   page.update()
 
   def load_data():
-    return values.values()
+    file_path = os.path.dirname(__file__) + "/data/data_values.json"
+    if os.path.isfile(file_path):
+      with open(file_path, "r") as file:
+        obj = json.load(file)
+        return dict_to_values(obj)
+    else:
+      return values.values()
 
   def save_data():
-    pass
+    file_path = os.path.dirname(__file__) + "/data/data_values.json"
+    with open(file_path, "w") as file:
+      obj = vars(page.data)
+      json.dump(obj, file)
+
+  def dict_to_values(dc: dict) -> values.values:
+    res = values.values.__new__(values.values)
+    res.__dict__ = dc
+    return res
+
+  def window_event(event):
+    if event.data == "close":
+      save_data()
+      page.window_destroy()
 
   page.data = load_data()
+  page.on_window_event = window_event
+  page.window_prevent_close = True
+
   def refresh(page: ft.Page):
     data = data_getter.get(page.data)
     if data is None:
