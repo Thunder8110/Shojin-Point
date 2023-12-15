@@ -72,6 +72,8 @@ def main(page: ft.Page):
   page.data = load_data()
   page.on_window_event = window_event
   page.window_prevent_close = True
+  refresh_main(page)
+  refresh_setting(page)
 
   def refresh(page: ft.Page):
     data = data_getter.get(page.data)
@@ -84,7 +86,7 @@ def main(page: ft.Page):
     page.update()
 
   page.update()
-  
+
   schedule.every(20).seconds.do(refresh, page)
   while True:
     schedule.run_pending()

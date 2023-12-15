@@ -1,5 +1,6 @@
 import flet as ft
 import datetime
+import values
 
 def view_setting(page, navigation_bar):
   text_user = ft.Text("User Name:", size=20, weight=ft.FontWeight.W_400)
@@ -71,6 +72,30 @@ def view_setting(page, navigation_bar):
   )
 
   def refresh(page: ft.Page):
-    pass
+    data: values.values = page.data
+    if data is None:
+      return
+    user = data.user
+    if user is not None:
+      textfield_user.value = user
+    begin = data.begin_date
+    if begin is not None:
+      textfield_begin.value = datetime.datetime.fromtimestamp(begin).strftime("%Y-%m-%d %H:%M:%S")
+    end = data.end_date
+    if end is not None:
+      textfield_end.value = datetime.datetime.fromtimestamp(end).strftime("%Y-%m-%d %H:%M:%S")
+    formula = data.formula
+    if formula is not None:
+      textfield_formula.value = formula
+    valx = data.valx
+    if valx is not None:
+      textfield_valx.value = str(valx)
+    valy = data.valy
+    if valy is not None:
+      textfield_valy.value = str(valy)
+    valz = data.valz
+    if valz is not None:
+      textfield_valz.value = str(valz)
+
 
   return ft.View("/setting", [container_settingdisplay], navigation_bar=navigation_bar), refresh
