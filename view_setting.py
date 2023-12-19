@@ -1,6 +1,7 @@
 import flet as ft
 import datetime
 import values
+import data_getter
 
 def view_setting(page, navigation_bar):
   text_user = ft.Text("User Name:", size=20, weight=ft.FontWeight.W_400)
@@ -52,8 +53,12 @@ def view_setting(page, navigation_bar):
     if input_valz is not None:
       page.data.valz = float(input_valz)
 
+  def problems_data(event):
+    data_getter.download_problems()
+
   button_ok = ft.TextButton(text="OK", on_click=input_data)
-  row_button = ft.Row([button_ok], alignment=ft.MainAxisAlignment.END)
+  button_ref = ft.TextButton(text="Refresh problems", on_click=problems_data)
+  row_button = ft.Row([button_ref, button_ok], alignment=ft.MainAxisAlignment.END)
 
   container_settingdisplay = ft.Container(
     content=ft.Column(
