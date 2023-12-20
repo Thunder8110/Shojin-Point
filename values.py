@@ -6,6 +6,7 @@ class values:
     self.begin_date: int | None = None
     self.end_date: int | None = None
     self.formula: str | None = None
+    self.dataver: int | None = None
     self.valx: float | None = None
     self.valy: float | None = None
     self.valz: float | None = None

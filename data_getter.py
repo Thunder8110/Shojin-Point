@@ -6,6 +6,15 @@ import json
 import values
 import formula_parser
 
+def data_refresh(val: values.values):
+  dataver = val.dataver
+  ver_url = "https://tools.kaminarinet.com/Shojin-Point-Web/data/data_version.json"
+  res = requests.get(ver_url)
+  dataver_new = json.loads(res.text)
+  if dataver_new["problems"] > dataver:
+    download_problems()
+  get(val)
+
 def get(val: values.values):
   user = val.user
   begin = val.begin_date

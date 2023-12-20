@@ -76,7 +76,7 @@ def main(page: ft.Page):
   refresh_setting(page)
 
   def refresh(page: ft.Page):
-    data = data_getter.get(page.data)
+    data = data_getter.data_refresh(page.data)
     if data is None:
       return
     points, tee = data
