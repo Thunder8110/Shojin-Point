@@ -50,7 +50,7 @@ def user_submissions(user: str):
   file_path = dir_path + f"/user_submissions/{user}.json"
   if not os.path.isdir(dir_path):
     os.makedirs(dir_path)
-  if not os.path.isfile(file_path):
+  if not os.path.isfile(file_path) or os.path.getsize(file_path) == 0:
     with open(file_path, "w") as file:
       file.write(json.dumps({"newest": 0, "accepted": {}}))
   with open(file_path, "r") as file:
