@@ -61,6 +61,7 @@ def merge_submission_data(curr_data, new_data):
     curr_data["newest"] = new_data[-1]["epoch_second"]
   except Exception as e:
     print(f"An error occured: {e}", file=sys.stderr)
+    print(f"New data was: {new_data}", file=sys.stderr)
     return
   accepted = curr_data["accepted"]
   for sub in new_data:
