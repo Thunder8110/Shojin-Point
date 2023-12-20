@@ -14,7 +14,7 @@ def data_refresh(val: values.values):
   if dataver is None or dataver_new["problems"] > dataver:
     download_problems()
     val.dataver = dataver_new["problems"]
-  get(val)
+  return get(val)
 
 def get(val: values.values):
   user = val.user
