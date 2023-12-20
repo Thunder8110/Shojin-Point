@@ -11,8 +11,9 @@ def data_refresh(val: values.values):
   ver_url = "https://tools.kaminarinet.com/Shojin-Point-Web/data/data_version.json"
   res = requests.get(ver_url)
   dataver_new = json.loads(res.text)
-  if dataver_new["problems"] > dataver:
+  if dataver is None or dataver_new["problems"] > dataver:
     download_problems()
+    val.dataver = dataver_new["problems"]
   get(val)
 
 def get(val: values.values):

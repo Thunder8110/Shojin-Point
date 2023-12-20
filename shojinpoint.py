@@ -60,8 +60,8 @@ def main(page: ft.Page):
       json.dump(obj, file)
 
   def dict_to_values(dc: dict) -> values.values:
-    res = values.values.__new__(values.values)
-    res.__dict__ = dc
+    res = values.values()
+    res.__dict__.update(dc)
     return res
 
   def window_event(event):
