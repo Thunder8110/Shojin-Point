@@ -6,7 +6,8 @@ sub : expr "-" term
 ?term : factor | mul | div
 mul : term "*" factor
 div : term "/" factor
-factor : number | variable | "(" expr ")"
+factor : pow | number | variable | "(" expr ")"
+pow : factor "^" factor
 variable : "[" CNAME "]"
 number : NUMBER
 

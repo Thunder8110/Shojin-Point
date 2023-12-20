@@ -17,6 +17,9 @@ class Formula(lark.Transformer):
   def div(self, tree):
     lhs, rhs = tree
     return lhs / rhs
+  def pow(self, tree):
+    lhs, rhs = tree
+    return lhs ** rhs
   def factor(self, tree):
     return tree[0]
   def variable(self, tree):
