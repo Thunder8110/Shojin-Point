@@ -1,4 +1,5 @@
 import os
+import sys
 import math
 import requests
 import json
@@ -56,8 +57,11 @@ def user_submissions(user: str):
   return curr_data
 
 def merge_submission_data(curr_data, new_data):
-  if len(new_data) == 0: return
-  curr_data["newest"] = new_data[-1]["epoch_second"]
+  try:
+    curr_data["newest"] = new_data[-1]["epoch_second"]
+  except Exception as e:
+    print(f"An error occured: {e}", file=sys.stderr)
+    return
   accepted = curr_data["accepted"]
   for sub in new_data:
     res = sub["result"]
