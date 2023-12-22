@@ -5,27 +5,27 @@ import data_getter
 
 def view_setting(page, navigation_bar):
   text_user = ft.Text("User Name:", size=20, weight=ft.FontWeight.W_400)
-  textfield_user = ft.TextField(label="name", content_padding=6)
+  textfield_user = ft.TextField(label="name", dense=True, content_padding=6, helper_text="your user name")
   row_user = ft.Row([text_user, textfield_user], alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
 
   text_begin = ft.Text("Begin Date:", size=20, weight=ft.FontWeight.W_400)
-  textfield_begin = ft.TextField(label="begin", content_padding=6)
+  textfield_begin = ft.TextField(label="begin", dense=True, content_padding=6, helper_text="beginning date (included)", hint_text="YYYY-MM-DD hh:mm:ss")
   row_begin = ft.Row([text_begin, textfield_begin], alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
 
   text_end = ft.Text("End Date:", size=20, weight=ft.FontWeight.W_400)
-  textfield_end = ft.TextField(label="end", content_padding=6)
+  textfield_end = ft.TextField(label="end", dense=True, content_padding=6, helper_text="ending date (excluded)", hint_text="YYYY-MM-DD hh:mm:ss")
   row_end = ft.Row([text_end, textfield_end], alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
 
   text_formula = ft.Text("Formula:", size=20, weight=ft.FontWeight.W_400)
-  textfield_formula = ft.TextField(label="formula", content_padding=6)
+  textfield_formula = ft.TextField(label="formula", dense=True, content_padding=6, helper_text="variables must be surround by \"[]\"")
   row_formula = ft.Row([text_formula, textfield_formula], alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
 
   text_val = ft.Text("Variable:", size=20, weight=ft.FontWeight.W_400)
   row_val = ft.Row([text_val], alignment=ft.MainAxisAlignment.START)
 
-  textfield_valx = ft.TextField(label="x", content_padding=6, expand=1)
-  textfield_valy = ft.TextField(label="y", content_padding=6, expand=1)
-  textfield_valz = ft.TextField(label="z", content_padding=6, expand=1)
+  textfield_valx = ft.TextField(label="x", dense=True, content_padding=6, expand=1, helper_text="variable x")
+  textfield_valy = ft.TextField(label="y", dense=True, content_padding=6, expand=1, helper_text="variable y")
+  textfield_valz = ft.TextField(label="z", dense=True, content_padding=6, expand=1, helper_text="variable z")
   row_valxyz = ft.Row([textfield_valx, textfield_valy, textfield_valz], alignment=ft.MainAxisAlignment.START, spacing=3)
 
   def input_data(event):
@@ -104,4 +104,4 @@ def view_setting(page, navigation_bar):
       textfield_valz.value = str(valz)
 
 
-  return ft.View("/setting", [container_settingdisplay], navigation_bar=navigation_bar), refresh
+  return ft.View("/setting", [container_settingdisplay], navigation_bar=navigation_bar, scroll=ft.ScrollMode.AUTO), refresh

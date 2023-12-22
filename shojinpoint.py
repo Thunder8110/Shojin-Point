@@ -25,6 +25,7 @@ def main(page: ft.Page):
       body_large=ft.TextStyle(font_family="MPLUS1", weight=ft.FontWeight.W_400, color=ft.colors.BLACK),
       label_large=ft.TextStyle(font_family="MPLUS1", weight=ft.FontWeight.W_400),
       label_medium=ft.TextStyle(font_family="MPLUS1", weight=ft.FontWeight.W_400),
+      body_small=ft.TextStyle(font_family="MPLUS1", weight=ft.FontWeight.W_400),
     ),
   )
   navbar = parts.navigation_bar(page)
