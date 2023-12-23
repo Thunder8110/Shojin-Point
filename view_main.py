@@ -55,9 +55,13 @@ def view_main(page, navigation_bar):
     begin = page.data.begin_date
     end = page.data.end_date
     
-    text_mainpointsnum.value = str(points)
-    text_subpointsnum.value = f"{tee:.2f}"
-    text_begindate.value = str(datetime.datetime.fromtimestamp(begin))
-    text_enddate.value = str(datetime.datetime.fromtimestamp(end))
+    if points is not None:
+      text_mainpointsnum.value = str(points)
+    if tee is not None:
+      text_subpointsnum.value = f"{tee:.2f}"
+    if begin is not None:
+      text_begindate.value = str(datetime.datetime.fromtimestamp(begin))
+    if end is not None:
+      text_enddate.value = str(datetime.datetime.fromtimestamp(end))
 
   return ft.View("/", [container_maindisplay, container_subdisplay], navigation_bar=navigation_bar), refresh

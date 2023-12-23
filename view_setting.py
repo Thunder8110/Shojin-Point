@@ -29,29 +29,69 @@ def view_setting(page, navigation_bar):
   row_valxyz = ft.Row([textfield_valx, textfield_valy, textfield_valz], alignment=ft.MainAxisAlignment.START, spacing=3)
 
   def input_data(event):
-    input_user = textfield_user.value
-    if input_user is not None:
-      page.data.user = input_user
-    input_begin = textfield_begin.value
-    if input_begin is not None:
-      dtbegin = datetime.datetime.strptime(input_begin, "%Y-%m-%d %H:%M:%S")
-      page.data.begin_date = int(dtbegin.timestamp())
-    input_end = textfield_end.value
-    if input_end is not None:
-      dtend = datetime.datetime.strptime(input_end, "%Y-%m-%d %H:%M:%S")
-      page.data.end_date = int(dtend.timestamp())
-    input_formula = textfield_formula.value
-    if input_formula is not None:
-      page.data.formula = input_formula
-    input_valx = textfield_valx.value
-    if input_valx is not None:
-      page.data.valx = float(input_valx)
-    input_valy = textfield_valy.value
-    if input_valy is not None:
-      page.data.valy = float(input_valy)
-    input_valz = textfield_valz.value
-    if input_valz is not None:
-      page.data.valz = float(input_valz)
+    user = None
+    begin = None
+    end = None
+    formula = None
+    valx = None
+    valy = None
+    valz = None
+
+    is_valid = True
+    try:
+      user = values.validate_user(textfield_user.value)
+      textfield_user.error_text = None
+    except ValueError:
+      textfield_user.error_text = "input username"
+      is_valid = False
+
+    try:
+      begin = values.validate_date(textfield_begin.value)
+      textfield_begin.error_text = None
+    except ValueError:
+      textfield_begin.error_text = "input correct date (YYYY-MM-DD hh-mm-ss)"
+      is_valid = False
+
+    try:
+      end = values.validate_date(textfield_end.value)
+      textfield_end.error_text = None
+    except ValueError:
+      textfield_end.error_text = "input correct date (YYYY-MM-DD hh-mm-ss)"
+      is_valid = False
+
+    try:
+      formula = values.validate_formula(textfield_formula.value)
+      textfield_formula.error_text = None
+    except ValueError:
+      textfield_formula.error_text = "input correct formula"
+      is_valid = False
+      
+    try:
+      valx = values.validate_val(textfield_valx.value)
+      textfield_valx.error_text = None
+    except ValueError:
+      valx = 0.0
+
+    try:
+      valy = values.validate_val(textfield_valy.value)
+    except ValueError:
+      valy = 0.0
+
+    try:
+      valz = values.validate_val(textfield_valz.value)
+    except ValueError:
+      valz = 0.0
+
+    if is_valid:
+      page.data.user = user
+      page.data.begin_date = begin
+      page.data.end_date = end
+      page.data.formula = formula
+      page.data.valx = valx
+      page.data.valy = valy
+      page.data.valz = valz
+
+    page.update()
 
   def problems_data(event):
     data_getter.download_problems()
