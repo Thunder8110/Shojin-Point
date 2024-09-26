@@ -7,6 +7,9 @@ class values:
     self.user: str | None = None
     self.points: int | None = None
     self.tee: float | None = None
+    self.day: int | None = None
+    self.hour: int | None = None
+    self.minute: int | None = None
     self.begin_date: int | None = None
     self.end_date: int | None = None
     self.formula: str | None = None
