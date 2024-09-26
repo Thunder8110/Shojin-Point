@@ -4,6 +4,7 @@ import math
 import requests
 import json
 import values
+import tee_values
 import formula_parser
 
 def data_refresh(val: values.values):
@@ -29,21 +30,10 @@ def get(val: values.values):
   submissions = user_submissions(user)
   accepted = submissions["accepted"]
   probs = problems()
-  tee_sum = 0.0
-  for unique_ac in accepted:
-    if unique_ac in probs and begin <= accepted[unique_ac] < end:
-      prob = probs[unique_ac]
-      if "slope" not in prob or "intercept" not in prob:
-        continue
-      tee_sum += tee_problem(prob["slope"], prob["intercept"])
+  tee_sum = tee_values.tee_sum(accepted, probs, begin, end)
   variables = {"tee": tee_sum, "x": valx, "y": valy, "z": valz}
   points = formula_parser.calculate(formula, variables)
   return points, tee_sum
-
-def tee_problem(slope: float, intercept: float):
-  top_player_rating = 4000
-  log_time = slope * top_player_rating + intercept
-  return math.exp(log_time)
 
 def user_submissions(user: str):
   dir_path = os.path.dirname(__file__) + "/data"
