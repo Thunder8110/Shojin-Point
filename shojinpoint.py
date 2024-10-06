@@ -46,7 +46,10 @@ def main(page: ft.Page):
   page.views.append(vw_main)
 
   def load_data():
-    file_path = os.path.dirname(__file__) + "/data/data_values.json"
+    dir_path = os.path.dirname(__file__) + "/data"
+    if not os.path.isdir(dir_path):
+      os.makedirs(dir_path)
+    file_path = dir_path + "/data_values.json"
     if os.path.isfile(file_path):
       with open(file_path, "r") as file:
         obj = json.load(file)
