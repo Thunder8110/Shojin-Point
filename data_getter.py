@@ -84,3 +84,12 @@ def problems():
   with open (file_path, "r") as file:
     probs = json.load(file)
   return probs
+
+def problem_tee_from_id(id: str) -> float | None:
+  probs = problems()
+  if id in probs:
+    prob = probs[id]
+    if "slope" not in prob or "intercept" not in prob:
+      return None
+    return tee_values.tee_problem(prob["slope"], prob["intercept"])
+  return None
