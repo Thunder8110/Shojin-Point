@@ -47,9 +47,12 @@ def tee_problem(slope: float, intercept: float):
 
 def user_submissions(user: str):
   dir_path = os.path.dirname(__file__) + "/data"
-  file_path = dir_path + f"/user_submissions/{user}.json"
+  dir_sub_path = dir_path + "/user_submissions"
+  file_path = dir_sub_path + f"/{user}.json"
   if not os.path.isdir(dir_path):
     os.makedirs(dir_path)
+  if not os.path.isdir(dir_sub_path):
+    os.makedirs(dir_sub_path)
   if not os.path.isfile(file_path) or os.path.getsize(file_path) == 0:
     with open(file_path, "w") as file:
       file.write(json.dumps({"newest": 0, "accepted": {}}))
