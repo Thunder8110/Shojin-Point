@@ -4,6 +4,7 @@ import math
 import requests
 import json
 import values
+import date_values
 import formula_parser
 
 def data_refresh(val: values.values):
@@ -36,7 +37,11 @@ def get(val: values.values):
       if "slope" not in prob or "intercept" not in prob:
         continue
       tee_sum += tee_problem(prob["slope"], prob["intercept"])
-  variables = {"tee": tee_sum, "x": valx, "y": valy, "z": valz}
+  day, hour, minute = date_values.get_date_values_to_now(begin)
+  variables = {
+    "tee": tee_sum, "day": day, "hour": hour, "minute": minute,
+      "x": valx, "y": valy, "z": valz
+    }
   points = formula_parser.calculate(formula, variables)
   return points, tee_sum
 
