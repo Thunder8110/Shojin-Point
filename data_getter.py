@@ -82,7 +82,12 @@ def user_submissions(val:values.values,user: str):
           merge_submission_data(curr_data, new_data)
           if len(new_data) == 0:
             break
-          newest = new_data[-1]["epoch_second"]
+          try:
+            newest = new_data[-1]["epoch_second"]
+          except Exception as e:
+            print(f"An error occured: {e}", file=sys.stderr)
+            print(f"New data was: {new_data}", file=sys.stderr)
+            return curr_data
           if len(new_data) != 500:
             break
         else:
