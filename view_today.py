@@ -1,6 +1,6 @@
 import flet as ft
 import datetime
-
+import time
 def view_main(page, navigation_bar):
   text_mainpoints = ft.Text("Points:", size=40, weight=ft.FontWeight.W_400)
   text_mainpointsnum = ft.Text("", size=80, weight=ft.FontWeight.W_600, italic=True)
@@ -28,31 +28,37 @@ def view_main(page, navigation_bar):
     bgcolor=ft.colors.BLACK12,
   )
 
-  text_begin = ft.Text("Begin:", size=30, weight=ft.FontWeight.W_300)
+  text_begin = ft.Text("Day:", size=30, weight=ft.FontWeight.W_300)
   text_begindate = ft.Text("", size=30, weight=ft.FontWeight.W_300)
   row_begin = ft.Row(
     controls=[text_begin, text_begindate],
     alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
   )
-
-  text_end = ft.Text("End:", size=30, weight=ft.FontWeight.W_300)
-  text_enddate = ft.Text("", size=30, weight=ft.FontWeight.W_300)
-  row_end = ft.Row(
-    controls=[text_end, text_enddate],
+  def day_add(x):
+    page.data.day += 60*60*24
+  def day_dec(x):
+    page.data.day -= 60*60*24
+  def go_today(x):
+    page.data.day = int(time.time())
+  button_left = ft.TextButton(text="<<", on_click=day_dec)
+  button_today = ft.TextButton(text="today", on_click=go_today)
+  button_right = ft.TextButton(text=">>", on_click=day_add)
+  row_buttons = ft.Row(
+    controls=[button_left,button_today, button_right],
     alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
   )
 
   container_subdisplay = ft.Container(
     content=ft.Column(
-      [row_begin, row_end]
+      [row_begin, row_buttons]
     ),
     margin=ft.margin.all(10),
     padding=ft.padding.all(10),
   )
 
   def refresh(page: ft.Page):
-    points = page.data.points
-    tee = page.data.tee
+    points = page.data.points_today
+    tee = page.data.tee_today
     begin = page.data.begin_date
     end = page.data.end_date
     
@@ -61,8 +67,6 @@ def view_main(page, navigation_bar):
     if tee is not None:
       text_subpointsnum.value = f"{tee:.2f}"
     if begin is not None:
-      text_begindate.value = str(datetime.datetime.fromtimestamp(begin))
-    if end is not None:
-      text_enddate.value = str(datetime.datetime.fromtimestamp(end))
+      text_begindate.value = str(datetime.datetime.fromtimestamp(page.data.day).date())
 
-  return ft.View("/", [container_maindisplay, container_subdisplay], navigation_bar=navigation_bar), refresh
+  return ft.View("/today", [container_maindisplay, container_subdisplay], navigation_bar=navigation_bar), refresh

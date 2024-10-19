@@ -6,6 +6,7 @@ import time
 import view_main
 import view_info
 import view_setting
+import view_today
 import parts
 import values
 import data_getter
@@ -40,9 +41,12 @@ def main(page: ft.Page):
   vw_setting, refresh_setting = view_setting.view_setting(page=page, navigation_bar=navbar)
   vw_info, refresh_info = view_info.view_info(page=page, navigation_bar=navbar)
   vw_main, refresh_main = view_main.view_main(page=page, navigation_bar=navbar)
+  vw_today, refresh_today = view_today.view_main(page=page, navigation_bar=navbar)
+  
   page.views.clear()
   page.views.append(vw_setting)
   page.views.append(vw_info)
+  page.views.append(vw_today)
   page.views.append(vw_main)
 
   def load_data():
@@ -63,6 +67,7 @@ def main(page: ft.Page):
   def dict_to_values(dc: dict) -> values.values:
     res = values.values()
     res.__dict__.update(dc)
+    res.day = int(time.time())
     return res
 
   def window_event(event):
@@ -74,23 +79,26 @@ def main(page: ft.Page):
   page.on_window_event = window_event
   page.window_prevent_close = True
   refresh_main(page)
+  refresh_today(page)
   refresh_setting(page)
 
   def refresh(page: ft.Page):
     data = data_getter.data_refresh(page.data)
     if data is None:
       return
-    points, tee = data
+    points, tee, points_today, tee_today = data
     page.data.points = points
     page.data.tee = tee
+    page.data.points_today = points_today
+    page.data.tee_today = tee_today
     refresh_main(page)
+    refresh_today(page)
     page.update()
-
   page.update()
 
-  schedule.every(20).seconds.do(refresh, page)
+  schedule.every(0.1).seconds.do(refresh, page)
   while True:
     schedule.run_pending()
-    time.sleep(1)
+    #time.sleep(0.1)
 
 ft.app(target=main)
