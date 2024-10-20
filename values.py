@@ -1,4 +1,6 @@
 from datetime import datetime
+from datetime import date
+import time
 import formula_parser
 import lark
 
@@ -7,9 +9,6 @@ class values:
     self.user: str | None = None
     self.points: int | None = None
     self.tee: float | None = None
-    self.day: int | None = None
-    self.hour: int | None = None
-    self.minute: int | None = None
     self.begin_date: int | None = None
     self.end_date: int | None = None
     self.formula: str | None = None
@@ -17,6 +16,11 @@ class values:
     self.valx: float | None = None
     self.valy: float | None = None
     self.valz: float | None = None
+    self.last_get_time : float | None = None
+    self.tee_today : float | None = None
+    self.today_tee : float | None = None
+    self.points_today: int | None = None
+    self.day : int | None = None
 
 def validate_user(value):
   if value is None or value == "":
