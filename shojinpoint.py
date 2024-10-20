@@ -10,6 +10,14 @@ import view_today
 import parts
 import values
 import data_getter
+from logging import getLogger
+from logging import config as logging_config
+
+with open("logger_config.json", "r") as file:
+  config = json.load(file)
+  logging_config.dictConfig(config)
+
+logger = getLogger("ShojinPoint")
 
 def main(page: ft.Page):
   page.title = "Shojin Point"
@@ -50,6 +58,7 @@ def main(page: ft.Page):
   page.views.append(vw_main)
 
   def load_data():
+    logger.info("Loading data...")
     dir_path = os.path.dirname(__file__) + "/data"
     if not os.path.isdir(dir_path):
       os.makedirs(dir_path)
@@ -62,6 +71,7 @@ def main(page: ft.Page):
       return values.values()
 
   def save_data():
+    logger.info("Saving data...")
     file_path = os.path.dirname(__file__) + "/data/data_values.json"
     with open(file_path, "w") as file:
       obj = vars(page.data)
