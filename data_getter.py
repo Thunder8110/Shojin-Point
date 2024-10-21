@@ -8,6 +8,9 @@ import date_values
 import formula_parser
 import time
 import datetime
+from logging import getLogger
+
+logger = getLogger("ShojinPoint")
 
 def data_refresh(val: values.values):
   # dataver = val.dataver
@@ -82,7 +85,7 @@ def user_submissions(val:values.values,user: str):
       while True:
         time.sleep(1)
         user_url = f"https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user={user}&from_second={newest}"
-        print("user_submissions_getting...",user_url)
+        logger.info(f"user_submissions_getting... {user_url}")
         res = requests.get(user_url)
         cont = res.text
         new_data = json.loads(cont)
@@ -93,8 +96,7 @@ def user_submissions(val:values.values,user: str):
           try:
             newest = new_data[-1]["epoch_second"]
           except Exception as e:
-            print(f"An error occured: {e}", file=sys.stderr)
-            print(f"New data was: {new_data}", file=sys.stderr)
+            logger.error(f"An error occured: {e} - New data was: {new_data}")
             return curr_data
           if len(new_data) != 500:
             break
@@ -107,8 +109,7 @@ def merge_submission_data(curr_data, new_data):
   try:
     curr_data["newest"] = new_data[-1]["epoch_second"]
   except Exception as e:
-    print(f"An error occured: {e}", file=sys.stderr)
-    print(f"New data was: {new_data}", file=sys.stderr)
+    logger.error(f"An error occured: {e} - New data was: {new_data}")
     return
   accepted = curr_data["accepted"]
   for sub in new_data:
@@ -119,7 +120,7 @@ def merge_submission_data(curr_data, new_data):
       accepted[prob_id] = sub_time
 
 def download_problems():
-  print("download_problems")
+  logger.info("downloading problems...")
   file_path = os.path.dirname(__file__) + "/data/problem-models.json"
   problems_url = "https://kenkoooo.com/atcoder/resources/problem-models.json"
   res = requests.get(problems_url)
