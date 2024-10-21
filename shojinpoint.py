@@ -99,9 +99,9 @@ def main(page: ft.Page):
     page.update()
   page.update()
 
-  schedule.every(0.1).seconds.do(refresh, page)
+  schedule.every(1).seconds.do(refresh, page)
   while True:
     schedule.run_pending()
-    #time.sleep(0.1)
+    time.sleep(0.1)
 
 ft.app(target=main)
