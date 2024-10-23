@@ -56,7 +56,7 @@ def get(val: values.values):
       "x": valx, "y": valy, "z": valz
     }
   variables_today = {
-    "tee": tee_sum, "day": day, "hour": hour, "minute": minute,
+    "tee": tee_sum_today, "day": 1, "hour": 24, "minute": 1440,
       "x": valx, "y": valy, "z": valz
     }
   points = formula_parser.calculate(formula, variables)
