@@ -10,7 +10,7 @@ def navigation_bar(page: ft.Page):
     on_change=view_change,
     destinations=[
       ft.NavigationDestination(label="Main", icon=ft.icons.SHOW_CHART),
-      ft.NavigationDestination(label="Today", icon=ft.icons.SHOW_CHART),
+      ft.NavigationDestination(label="Today", icon=ft.icons.TODAY),
       ft.NavigationDestination(label="Information", icon=ft.icons.INFO_OUTLINE),
       ft.NavigationDestination(label="Settings", icon=ft.icons.SETTINGS),
     ],
