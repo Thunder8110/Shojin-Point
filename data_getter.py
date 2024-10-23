@@ -4,6 +4,7 @@ import math
 import requests
 import json
 import values
+import tee_values
 import date_values
 import formula_parser
 import time
@@ -27,29 +28,19 @@ def get(val: values.values):
   user = val.user
   begin = val.begin_date
   end = val.end_date
+  day = val.day
   formula = val.formula
   valx = val.valx
   valy = val.valy
   valz = val.valz
-  if user is None or begin is None or end is None or formula is None:
+  if user is None or begin is None or end is None or day is None or formula is None:
     return None
   submissions = user_submissions(val,user)
   accepted = submissions["accepted"]
   probs = problems()
-  tee_sum = 0.0
-  tee_sum_today = 0.0
-  for unique_ac in accepted:
-    if unique_ac in probs and begin <= accepted[unique_ac] < end:
-      prob = probs[unique_ac]
-      if "slope" not in prob or "intercept" not in prob:
-        continue
-      tee_sum += tee_problem(prob["slope"], prob["intercept"])
-    if unique_ac in probs and datetime.datetime.fromtimestamp(accepted[unique_ac]).date() == datetime.datetime.fromtimestamp(val.day).date():
-      prob = probs[unique_ac]
-      if "slope" not in prob or "intercept" not in prob:
-        continue
-      #print(unique_ac,tee_problem(prob["slope"], prob["intercept"]))
-      tee_sum_today += tee_problem(prob["slope"], prob["intercept"])
+  tee_sum = tee_values.tee_sum(accepted, probs, begin, end)
+  tee_sum_today = tee_values.tee_sum_on_day(accepted, probs, day)
+  
   day, hour, minute = date_values.get_date_values_to_now(begin)
   variables = {
     "tee": tee_sum, "day": day, "hour": hour, "minute": minute,
