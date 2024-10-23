@@ -14,3 +14,11 @@ def tee_problem(slope: float, intercept: float):
   top_player_rating = 4000
   log_time = slope * top_player_rating + intercept
   return math.exp(log_time)
+
+def problem_tee_from_id(probs: dict, id: str) -> float | None:
+  if id in probs:
+    prob = probs[id]
+    if "slope" not in prob or "intercept" not in prob:
+      return None
+    return tee_problem(prob["slope"], prob["intercept"])
+  return None
