@@ -69,13 +69,14 @@ def user_submissions(val:values.values,user: str):
       file.write(json.dumps({"newest": 0, "accepted": {}}))
   with open(file_path, "r") as file:
     curr_data = json.load(file)
-    newest = curr_data["newest"]
+    offset = 86400 # one day
+    get_start_time = curr_data["newest"] - offset
   if val.last_get_time is None or time.time() - val.last_get_time >= 60:
     val.last_get_time = time.time()
     with open(file_path, "w") as file:
       while True:
         time.sleep(1)
-        user_url = f"https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user={user}&from_second={newest}"
+        user_url = f"https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user={user}&from_second={get_start_time}"
         logger.info(f"user_submissions_getting... {user_url}")
         res = requests.get(user_url)
         cont = res.text
@@ -85,7 +86,7 @@ def user_submissions(val:values.values,user: str):
           if len(new_data) == 0:
             break
           try:
-            newest = new_data[-1]["epoch_second"]
+            get_start_time = new_data[-1]["epoch_second"]
           except Exception as e:
             logger.error(f"An error occured: {e} - New data was: {new_data}")
             return curr_data
