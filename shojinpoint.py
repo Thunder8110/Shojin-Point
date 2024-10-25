@@ -110,6 +110,7 @@ def main(page: ft.Page):
   page.update()
 
   schedule.every(1).seconds.do(refresh, page)
+  schedule.every(1).hours.do(data_getter.download_problems)
   while True:
     schedule.run_pending()
     time.sleep(0.1)
