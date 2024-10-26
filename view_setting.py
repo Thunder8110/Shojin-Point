@@ -49,14 +49,14 @@ def view_setting(page, navigation_bar):
       begin = values.validate_date(textfield_begin.value)
       textfield_begin.error_text = None
     except ValueError:
-      textfield_begin.error_text = "input correct date (YYYY-MM-DD hh-mm-ss)"
+      textfield_begin.error_text = "input correct date (YYYY-MM-DD hh:mm:ss)"
       is_valid = False
 
     try:
       end = values.validate_date(textfield_end.value)
       textfield_end.error_text = None
     except ValueError:
-      textfield_end.error_text = "input correct date (YYYY-MM-DD hh-mm-ss)"
+      textfield_end.error_text = "input correct date (YYYY-MM-DD hh:mm:ss)"
       is_valid = False
 
     try:
