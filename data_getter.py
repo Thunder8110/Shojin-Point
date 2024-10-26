@@ -70,6 +70,7 @@ def user_submissions(val:values.values,user: str):
   if not os.path.isfile(file_path) or os.path.getsize(file_path) == 0:
     with open(file_path, "w") as file:
       file.write(json.dumps({"newest": 0, "accepted": {}}))
+    val.last_get_time = None
   with open(file_path, "r") as file:
     curr_data = json.load(file)
     newest = curr_data["newest"]
