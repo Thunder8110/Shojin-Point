@@ -62,11 +62,13 @@ def view_main(page, navigation_bar):
     top_tees.sort(reverse=True)
     return (ac_count,tee_sum_today,top_tees)
   def tweet(x):
-    day = datetime.datetime.fromtimestamp(page.data.day).strftime("%m月%d日")
+    selected_day = page.data.day
+    user = page.data.user
+    day = datetime.datetime.fromtimestamp(selected_day).strftime("%m月%d日")
     probs = problems()
-    submissions = user_submissions(page.data,page.data.user)
+    submissions = user_submissions(page.data,user)
     accepted = submissions["accepted"]
-    ac_count,tee_sum_today,top_tees = get_ac_values_day(accepted,probs,page.data.day)
+    ac_count,tee_sum_today,top_tees = get_ac_values_day(accepted,probs,selected_day)
     text = f"{day} {user}の精進記録\n"
     text += f"新規AC数: {ac_count}\n"
     text += f"獲得TEE: {int(tee_sum_today)}\n"
