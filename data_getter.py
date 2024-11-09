@@ -69,7 +69,7 @@ def user_submissions(val:values.values,user: str):
       file.write(json.dumps({"newest": 0, "accepted": {}}))
   with open(file_path, "r") as file:
     curr_data = json.load(file)
-    offset = 86400 # one day
+    offset = 60 * 60 * 24 * 7 # one week
     get_start_time = curr_data["newest"] - offset
   if val.last_get_time is None or time.time() - val.last_get_time >= 60:
     val.last_get_time = time.time()
