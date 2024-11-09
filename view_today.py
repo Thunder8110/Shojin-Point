@@ -67,9 +67,9 @@ def view_main(page, navigation_bar):
     submissions = user_submissions(page.data,page.data.user)
     accepted = submissions["accepted"]
     ac_count,tee_sum_today,top_tees = get_ac_values_day(accepted,probs,page.data.day)
-    text = f"{day}の精進記録\n"
-    text += f"新規AC数:{ac_count}\n"
-    text += f"獲得TEE:{int(tee_sum_today)}\n"
+    text = f"{day} {user}の精進記録\n"
+    text += f"新規AC数: {ac_count}\n"
+    text += f"獲得TEE: {int(tee_sum_today)}\n"
     if len(top_tees) != 0:
       text += "解いた問題たち\n"
       for i in range(min(5,len(top_tees))):
