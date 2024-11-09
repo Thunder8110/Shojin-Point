@@ -59,7 +59,7 @@ def tee_problem(slope: float, intercept: float):
   log_time = slope * top_player_rating + intercept
   return math.exp(log_time)
 
-def user_submissions(val:values.values,user: str):
+def user_submissions(val:values.values,user: str,reset=False):
   dir_path = os.path.dirname(__file__) + "/data"
   user_sub_dir_path = dir_path + "/user_submissions/"
   file_path = user_sub_dir_path + f"{user}.json"
@@ -73,13 +73,17 @@ def user_submissions(val:values.values,user: str):
     val.last_get_time = None
   with open(file_path, "r") as file:
     curr_data = json.load(file)
-    newest = curr_data["newest"]
+    offset = 60 * 60 * 24 * 7 # one week
+    get_start_time = curr_data["newest"] - offset
+  if reset:
+    val.last_get_time = None
+    get_start_time = 0
   if val.last_get_time is None or time.time() - val.last_get_time >= 60:
     val.last_get_time = time.time()
     with open(file_path, "w") as file:
       while True:
         time.sleep(1)
-        user_url = f"https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user={user}&from_second={newest}"
+        user_url = f"https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user={user}&from_second={get_start_time}"
         logger.info(f"user_submissions_getting... {user_url}")
         res = requests.get(user_url)
         cont = res.text
@@ -89,7 +93,7 @@ def user_submissions(val:values.values,user: str):
           if len(new_data) == 0:
             break
           try:
-            newest = new_data[-1]["epoch_second"]
+            get_start_time = new_data[-1]["epoch_second"]
           except Exception as e:
             logger.error(f"An error occured: {e} - New data was: {new_data}")
             return curr_data
