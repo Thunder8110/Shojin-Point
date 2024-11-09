@@ -96,9 +96,15 @@ def view_setting(page, navigation_bar):
   def problems_data(event):
     data_getter.download_problems()
 
+  def reset_user_submissions(event):
+    user = page.data.user
+    if user is not None:
+      data_getter.user_submissions(page.data, user, reset=True)
+
   button_ok = ft.TextButton(text="OK", on_click=input_data)
   button_ref = ft.TextButton(text="Refresh problems", on_click=problems_data)
-  row_button = ft.Row([button_ref, button_ok], alignment=ft.MainAxisAlignment.END)
+  button_sub = ft.TextButton(text="Reset submissions", on_click=reset_user_submissions)
+  row_button = ft.Row([button_ref, button_sub, button_ok], alignment=ft.MainAxisAlignment.END)
 
   container_settingdisplay = ft.Container(
     content=ft.Column(

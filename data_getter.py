@@ -59,7 +59,7 @@ def tee_problem(slope: float, intercept: float):
   log_time = slope * top_player_rating + intercept
   return math.exp(log_time)
 
-def user_submissions(val:values.values,user: str):
+def user_submissions(val:values.values,user: str,reset=False):
   dir_path = os.path.dirname(__file__) + "/data"
   file_path = dir_path + f"/user_submissions/{user}.json"
   if not os.path.isdir(dir_path):
@@ -71,6 +71,9 @@ def user_submissions(val:values.values,user: str):
     curr_data = json.load(file)
     offset = 60 * 60 * 24 * 7 # one week
     get_start_time = curr_data["newest"] - offset
+  if reset:
+    val.last_get_time = None
+    get_start_time = 0
   if val.last_get_time is None or time.time() - val.last_get_time >= 60:
     val.last_get_time = time.time()
     with open(file_path, "w") as file:
